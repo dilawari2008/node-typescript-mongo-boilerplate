@@ -3,9 +3,7 @@
 ### Start using it as
 
 ```
-npm i node-typescript-express-boilerplate
-
-cd node-typescript-express-boilerplate
+npx node-typescript-express-boilerplate your-project-name
 
 npm run start
 ```
