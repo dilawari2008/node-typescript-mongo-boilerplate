@@ -1,5 +1,12 @@
 # Lightweight boilerplate for Express Apps with typescript
 
 ### Start using it as
-_npm i node-typescript-express-boilerplate_
+
+```
+npm i node-typescript-express-boilerplate
+
+cd node-typescript-express-boilerplate
+
+npm run start
+```
 
