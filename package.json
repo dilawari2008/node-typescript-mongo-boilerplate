@@ -1,8 +1,11 @@
 {
   "name": "node-typescript-express-boilerplate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Lightweight boilerplate for Express Apps with typescript",
   "main": "src/index.ts",
+  "bin": {
+    "node-typescript-express-boilerplate": "bin/cli.js"
+  },
   "scripts": {
     "build": "rimraf dist && tsc && tsc-alias -v",
     "start": "npx nodemon src/index.ts --legacy-watch",
