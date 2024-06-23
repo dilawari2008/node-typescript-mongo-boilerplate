@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "rimraf dist && tsc && tsc-alias -v",
+    "start": "npx nodemon src/index.ts --legacy-watch",
+    "direct": "ts-node src/index.ts",
+    "lint": "eslint --ignore-path .gitignore --ext .ts,.js ./",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "tslib": "^2.6.3",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.14",
+    "@types/express": "^4.17.21",
+    "nodemon": "^3.1.4",
+    "tsconfig-paths": "^4.2.0"
+  }
+}
