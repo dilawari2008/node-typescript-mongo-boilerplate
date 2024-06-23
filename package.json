@@ -1,10 +1,14 @@
 {
   "name": "node-typescript-express-boilerplate",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Lightweight boilerplate for Express Apps with typescript",
   "main": "src/index.ts",
   "bin": {
-    "node-typescript-express-boilerplate": "bin/cli.js"
+    "node-typescript-express-boilerplate": "bin/cli.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dilawari2008/node-typescript-express-boilerplate"
   },
   "scripts": {
     "build": "rimraf dist && tsc && tsc-alias -v",
