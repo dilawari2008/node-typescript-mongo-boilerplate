@@ -1,7 +1,7 @@
 {
-  "name": "backend",
+  "name": "node-typescript-express-boilerplate",
   "version": "1.0.0",
-  "description": "",
+  "description": "Lightweight boilerplate for Express Apps with typescript",
   "main": "src/index.ts",
   "scripts": {
     "build": "rimraf dist && tsc && tsc-alias -v",
