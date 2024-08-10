@@ -4,13 +4,11 @@ import { Schema, Types } from "mongoose";
 
 const userSchema: Schema = new Schema<IUser>({
   _id: Types.ObjectId,
-  name: String,
-  email: String,
-  hash: String,
-  salt: String,
-  deleted: { type: Boolean, required: true , default: false },
+  name: { type: String, required: false },
+  email: { type: String, required: true },
+  hash: { type: String, required: true },
+  salt: { type: String, required: true },
+  deleted: { type: Boolean, required: true, default: false },
 });
 
-
-export const User = DB.model<IUser>('User', userSchema);
-
+export const User = DB.model<IUser>("User", userSchema);

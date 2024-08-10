@@ -6,7 +6,7 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import { errorHandler } from '@/middlewares';
+import { errorHandlerMiddleware } from '@/middlewares';
 import InitRoutes from '@/routes';
 import { HTTPLogger } from '@/common';
 import { nanoid } from 'nanoid';
@@ -70,7 +70,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 InitRoutes(app);
 
 // global catch
-app.use(errorHandler);
+app.use(errorHandlerMiddleware);
 
 // start listening on port for HTTP requests
 app.listen(port, () => {

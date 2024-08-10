@@ -5,7 +5,7 @@ const LoggerModule = () => {
   const transports = [new Winston.transports.Console()];
 
   return Winston.createLogger({
-    level: process.env.LOG_LEVEL || 'error',
+    level: process.env.LOG_LEVEL || 'debug',
     transports,
     format: Winston.format.simple(),
     exceptionHandlers: [new Winston.transports.Console()],

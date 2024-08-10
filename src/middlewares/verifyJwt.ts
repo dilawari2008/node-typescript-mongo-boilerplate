@@ -8,7 +8,7 @@ import { JwtPayload, sign, verify } from 'jsonwebtoken';
 
 const DEFAULT_TIME = '1d';
 
-interface IJwtPayload {
+export interface IJwtPayload {
   user?: IContextUser;
   brand?: IContextBrand;
 }

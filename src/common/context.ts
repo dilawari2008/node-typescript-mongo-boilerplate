@@ -1,14 +1,14 @@
 import { Types } from "mongoose";
 
 export interface IContextBrand {
-  brandId: Types.ObjectId;
-  name: string;
+  brandId?: Types.ObjectId;
+  name?: string;
 }
 
 
 export interface IContextUser {
-  userId: Types.ObjectId;
-  name: string;
+  userId?: Types.ObjectId;
+  name?: string;
   email?: string;
 }
 
