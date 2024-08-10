@@ -1,3 +1,5 @@
+
+
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -7,6 +9,7 @@ import path from 'path';
 import { errorHandler } from '@/middlewares';
 import InitRoutes from '@/routes';
 import { HTTPLogger } from '@/common';
+import { nanoid } from 'nanoid';
 
 // in prod use .env, while development use .env.dev, do not put connection strings in .env as .env is not in .dockerignore
 config({ path: '.env.dev' });
@@ -21,6 +24,27 @@ app.use(helmet());
 // Enables Cross-Origin Resource Sharing (CORS) to allow requests from other domains.
 app.use(cors());
 
+// add reqId to the req
+app.use((req, res, next) => {
+  req.context = { reqId: nanoid() };
+  next();
+});
+
+// add sendOk and sendFormatted methods to res
+app.use((req, res, next) => {
+  res.sendOk = () => {
+    res.sendStatus(200);
+  };
+  res.sendFormatted = (data = {}, { meta, errorCode, message } = {}) => {
+    res.send({
+      data,
+      meta,
+      code: errorCode,
+      message,
+    });
+  };
+  next();
+});
 
 // X-XSS-Protection: Sets the X-XSS-Protection header to prevent cross-site scripting (XSS) attacks.
 app.use((req, res, next) => {
