@@ -16,7 +16,7 @@ const defaultRepoName = "node-typescript-express-boilerplate";
 const repoName = process.argv[2] || defaultRepoName;
 
 const gitCheckoutCommand = `git clone --depth 1 https://github.com/dilawari2008/node-typescript-express-boilerplate ${repoName}`;
-const installDepsCommand = `cd ${repoName} && npm install && npm run build`;
+const installDepsCommand = `cd ${repoName} && yarn install`;
 
 console.log(`Cloning ${repoName}...`);
 const checkedOut = runCommand(gitCheckoutCommand);
@@ -27,7 +27,7 @@ const installedDeps = runCommand(installDepsCommand);
 if (!installedDeps) process.exit(-1);
 
 console.log(`cd ${repoName}`);
-console.log("\n\nStart the server using npm run start");
+console.log("\n\nStart the server using yarn start");
 // add lines for changing git repo
-console.log("Change you remote url as:");
-console.log("git remote set-url origin <your-remote-url>");
+console.log("\n\nChange you remote url as:");
+console.log("\ngit remote set-url origin <your-remote-url>");
