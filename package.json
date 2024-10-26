@@ -12,8 +12,8 @@
   },
   "scripts": {
     "build": "rimraf dist && tsc && tsc-alias -v",
-    "start": "yarn nodemon src/index.ts --legacy-watch",
-    "direct": "ts-node src/index.ts",
+    "start": "yarn nodemon src/app.ts --legacy-watch",
+    "direct": "ts-node src/app.ts",
     "lint": "eslint --ignore-path .gitignore --ext .ts,.js ./",
     "lint:fix": "yarn lint -- --fix"
   },
