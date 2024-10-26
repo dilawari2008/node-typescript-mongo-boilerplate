@@ -11,7 +11,7 @@
     "url": "git+https://github.com/dilawari2008/node-typescript-express-boilerplate"
   },
   "scripts": {
-    "build": "rimraf dist && tsc && tsc-alias -v",
+    "build": "rimraf dist && tsc && tsc-alias -v ",
     "start": "yarn nodemon src/app.ts --legacy-watch",
     "direct": "ts-node src/app.ts",
     "lint": "eslint --ignore-path .gitignore --ext .ts,.js ./",
