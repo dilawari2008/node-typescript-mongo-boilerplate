@@ -2,7 +2,7 @@
   "name": "node-typescript-express-boilerplate",
   "version": "1.0.18",
   "description": "Lightweight boilerplate for Express Apps with typescript",
-  "main": "src/index.ts",
+  "main": "src/app.ts",
   "bin": {
     "node-typescript-express-boilerplate": "bin/cli.mjs"
   },
