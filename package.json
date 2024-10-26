@@ -1,6 +1,6 @@
 {
   "name": "node-typescript-express-boilerplate",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Lightweight boilerplate for Express Apps with typescript",
   "main": "src/app.ts",
   "bin": {
