@@ -1,4 +1,5 @@
-import TradeRouter from "@/routes/trade.router";
+import AuthRouter from "@/routes/auth.router";
+import UserRouter from "@/routes/user.router";
 import { Express, Router } from "express";
 
 // allows the router to inherit parameters from the parent router
@@ -9,7 +10,8 @@ WrapperRouter.get("/ping", (req, res) => {
 });
 
 // add more routes for each service
-WrapperRouter.use("/trade", TradeRouter);
+WrapperRouter.use("/auth", AuthRouter);
+WrapperRouter.use("/users", UserRouter);
 
 const InitRoutes = (app: Express) => {
   app.use("/api", WrapperRouter);
