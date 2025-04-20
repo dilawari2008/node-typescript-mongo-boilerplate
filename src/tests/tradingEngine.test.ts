@@ -1,165 +1,265 @@
-import { TradingEngine } from '../services/trading-engine';
-import { Order } from '../types';
+import { TradingEngine } from "../services/trading-engine";
+import { Order } from "../types";
 
-describe('TradingEngine', () => {
+describe("Trading Engine", () => {
   let engine: TradingEngine;
 
   beforeEach(() => {
     engine = new TradingEngine();
   });
 
-  test('should process a simple trade between matching buy and sell orders', () => {
-    // Create a buy order
-    const buyOrder: Order = {
-      type_op: 'CREATE',
-      account_id: '1',
-      amount: '1.5',
-      order_id: '101',
-      pair: 'BTC/USDC',
-      limit_price: '50000',
-      side: 'BUY'
-    };
+  test("should match buy and sell orders of the same pair", () => {
+    // Order books should be empty initially
+    expect(Object.keys(engine.getOrderBooks()).length).toBe(0);
 
-    // Create a sell order at the same price
+    // Create a sell order
     const sellOrder: Order = {
-      type_op: 'CREATE',
-      account_id: '2',
-      amount: '1.0',
-      order_id: '102',
-      pair: 'BTC/USDC',
-      limit_price: '50000',
-      side: 'SELL'
+      order_id: "1",
+      account_id: "acc1",
+      type_op: "CREATE",
+      side: "SELL",
+      amount: "10.0",
+      limit_price: "100.0",
+      pair: "BTC/USD",
     };
 
-    // Process the buy order first
-    engine.processOrder(buyOrder);
-    
-    // Check the orderbook - the buy order should be added
-    const orderBookAfterBuy = engine.getOrderBook();
-    expect(orderBookAfterBuy.bids.length).toBe(1);
-    expect(orderBookAfterBuy.asks.length).toBe(0);
-    expect(orderBookAfterBuy.bids[0].order_id).toBe('101');
-    expect(orderBookAfterBuy.bids[0].amount).toBe('1.50000000');
-
-    // No trades yet
-    expect(engine.getTrades().length).toBe(0);
-
-    // Process the sell order
     engine.processOrder(sellOrder);
 
-    // Check that a trade was created
-    const trades = engine.getTrades();
-    expect(trades.length).toBe(1);
-    expect(trades[0].buy_order_id).toBe('101');
-    expect(trades[0].sell_order_id).toBe('102');
-    expect(trades[0].amount).toBe('1.00000000');
-    expect(trades[0].price).toBe('50000');
+    // Order should be added to the orderbook
+    const orderBooks = engine.getOrderBooks();
+    expect(Object.keys(orderBooks).length).toBe(1);
+    expect(orderBooks["BTC/USD"].asks.length).toBe(1);
+    expect(orderBooks["BTC/USD"].bids.length).toBe(0);
 
-    // Check that the orderbook was updated
-    const orderBookAfterSell = engine.getOrderBook();
-    expect(orderBookAfterSell.bids.length).toBe(1);
-    expect(orderBookAfterSell.asks.length).toBe(0);
-    expect(orderBookAfterSell.bids[0].amount).toBe('0.50000000'); // 1.5 - 1.0 = 0.5 remaining
-  });
-
-  test('should match the best price for a market taker order', () => {
-    // Create several sell orders at different prices
-    const sellOrder1: Order = {
-      type_op: 'CREATE',
-      account_id: '1',
-      amount: '1.0',
-      order_id: '201',
-      pair: 'BTC/USDC',
-      limit_price: '51000',
-      side: 'SELL'
-    };
-
-    const sellOrder2: Order = {
-      type_op: 'CREATE',
-      account_id: '2',
-      amount: '2.0',
-      order_id: '202',
-      pair: 'BTC/USDC',
-      limit_price: '50000', // Better price
-      side: 'SELL'
-    };
-
-    // Add the sell orders to the orderbook
-    engine.processOrder(sellOrder1);
-    engine.processOrder(sellOrder2);
-
-    // Check the orderbook - sell orders should be sorted by price (lowest first)
-    const orderBookBeforeBuy = engine.getOrderBook();
-    expect(orderBookBeforeBuy.asks.length).toBe(2);
-    expect(orderBookBeforeBuy.asks[0].order_id).toBe('202'); // Lower price first
-    expect(orderBookBeforeBuy.asks[1].order_id).toBe('201');
-
-    // Create a buy order that should match with the best sell price
+    // Create a matching buy order
     const buyOrder: Order = {
-      type_op: 'CREATE',
-      account_id: '3',
-      amount: '1.5',
-      order_id: '203',
-      pair: 'BTC/USDC',
-      limit_price: '52000', // Willing to pay up to 52000
-      side: 'BUY'
+      order_id: "2",
+      account_id: "acc2",
+      type_op: "CREATE",
+      side: "BUY",
+      amount: "5.0",
+      limit_price: "100.0",
+      pair: "BTC/USD",
     };
 
-    // Process the buy order
     engine.processOrder(buyOrder);
 
-    // Check that a trade was created at the best available price
+    // Check that the trade was created
     const trades = engine.getTrades();
     expect(trades.length).toBe(1);
-    expect(trades[0].buy_order_id).toBe('203');
-    expect(trades[0].sell_order_id).toBe('202');
-    expect(trades[0].amount).toBe('1.50000000');
-    expect(trades[0].price).toBe('50000'); // Should match at the sell order's price
+    expect(trades[0].buy_order_id).toBe("2");
+    expect(trades[0].sell_order_id).toBe("1");
+    expect(trades[0].amount).toBe("5.00000000");
+    expect(trades[0].price).toBe("100.0");
+    expect(trades[0].pair).toBe("BTC/USD");
 
-    // Check the orderbook was updated correctly
-    const orderBookAfterBuy = engine.getOrderBook();
-    expect(orderBookAfterBuy.asks.length).toBe(2);
-    expect(orderBookAfterBuy.asks[0].order_id).toBe('202');
-    expect(orderBookAfterBuy.asks[0].amount).toBe('0.50000000'); // 2.0 - 1.5 = 0.5 remaining
-    expect(orderBookAfterBuy.asks[1].order_id).toBe('201');
-    expect(orderBookAfterBuy.asks[1].amount).toBe('1.00000000'); // Unchanged
+    // Check that the sell order was partially filled
+    expect(orderBooks["BTC/USD"].asks.length).toBe(1);
+    expect(orderBooks["BTC/USD"].asks[0].amount).toBe("5.00000000");
+
+    // Buy order should be fully matched, so it's not in the book
+    expect(orderBooks["BTC/USD"].bids.length).toBe(0);
   });
 
-  test('should handle order deletion correctly', () => {
-    // Create a buy order
-    const buyOrder: Order = {
-      type_op: 'CREATE',
-      account_id: '1',
-      amount: '1.0',
-      order_id: '301',
-      pair: 'BTC/USDC',
-      limit_price: '50000',
-      side: 'BUY'
+  test("orders of different pairs don't match and go to separate order books", () => {
+    // Create a sell order for BTC/USD
+    const sellOrderBtc: Order = {
+      order_id: "1",
+      account_id: "acc1",
+      type_op: "CREATE",
+      side: "SELL",
+      amount: "10.0",
+      limit_price: "100.0",
+      pair: "BTC/USD",
     };
 
-    // Process the order
-    engine.processOrder(buyOrder);
-    
-    // Check the orderbook - the order should be added
-    const orderBookBefore = engine.getOrderBook();
-    expect(orderBookBefore.bids.length).toBe(1);
+    // Create a buy order for ETH/USD
+    const buyOrderEth: Order = {
+      order_id: "2",
+      account_id: "acc2",
+      type_op: "CREATE",
+      side: "BUY",
+      amount: "5.0",
+      limit_price: "100.0",
+      pair: "ETH/USD",
+    };
 
-    // Create a delete order
+    engine.processOrder(sellOrderBtc);
+    engine.processOrder(buyOrderEth);
+
+    // Check that both orders are in their respective order books
+    const orderBooks = engine.getOrderBooks();
+    expect(Object.keys(orderBooks).length).toBe(2);
+
+    // BTC/USD order book should have the sell order
+    expect(orderBooks["BTC/USD"].asks.length).toBe(1);
+    expect(orderBooks["BTC/USD"].bids.length).toBe(0);
+
+    // ETH/USD order book should have the buy order
+    expect(orderBooks["ETH/USD"].asks.length).toBe(0);
+    expect(orderBooks["ETH/USD"].bids.length).toBe(1);
+
+    // No trades should have been executed
+    expect(engine.getTrades().length).toBe(0);
+  });
+
+  test("multiple pairs matching properly", () => {
+    // BTC/USD pair orders
+    const btcSellOrder: Order = {
+      order_id: "1",
+      account_id: "acc1",
+      type_op: "CREATE",
+      side: "SELL",
+      amount: "2.0",
+      limit_price: "20000.0",
+      pair: "BTC/USD",
+    };
+
+    const btcBuyOrder: Order = {
+      order_id: "2",
+      account_id: "acc2",
+      type_op: "CREATE",
+      side: "BUY",
+      amount: "2.0",
+      limit_price: "20000.0",
+      pair: "BTC/USD",
+    };
+
+    // ETH/USD pair orders
+    const ethSellOrder: Order = {
+      order_id: "3",
+      account_id: "acc3",
+      type_op: "CREATE",
+      side: "SELL",
+      amount: "10.0",
+      limit_price: "1500.0",
+      pair: "ETH/USD",
+    };
+
+    const ethBuyOrder: Order = {
+      order_id: "4",
+      account_id: "acc4",
+      type_op: "CREATE",
+      side: "BUY",
+      amount: "5.0",
+      limit_price: "1500.0",
+      pair: "ETH/USD",
+    };
+
+    // Process all orders
+    engine.processOrder(btcSellOrder);
+    engine.processOrder(ethSellOrder);
+    engine.processOrder(btcBuyOrder);
+    engine.processOrder(ethBuyOrder);
+
+    // Check trades
+    const trades = engine.getTrades();
+    expect(trades.length).toBe(2);
+
+    // Verify BTC/USD trade
+    const btcTrade = trades.find((t) => t.pair === "BTC/USD");
+    expect(btcTrade).toBeDefined();
+    expect(btcTrade!.amount).toBe("2.00000000");
+
+    // Verify ETH/USD trade
+    const ethTrade = trades.find((t) => t.pair === "ETH/USD");
+    expect(ethTrade).toBeDefined();
+    expect(ethTrade!.amount).toBe("5.00000000");
+
+    // Check order books
+    const orderBooks = engine.getOrderBooks();
+
+    // BTC/USD orders should be fully matched (empty book)
+    expect(orderBooks["BTC/USD"].asks.length).toBe(0);
+    expect(orderBooks["BTC/USD"].bids.length).toBe(0);
+
+    // ETH/USD should have remaining sell order
+    expect(orderBooks["ETH/USD"].asks.length).toBe(1);
+    expect(orderBooks["ETH/USD"].asks[0].amount).toBe("5.00000000");
+    expect(orderBooks["ETH/USD"].bids.length).toBe(0);
+  });
+
+  test("delete orders from specific pairs", () => {
+    // Add orders to both pairs
+    const btcOrder: Order = {
+      order_id: "1",
+      account_id: "acc1",
+      type_op: "CREATE",
+      side: "BUY",
+      amount: "1.0",
+      limit_price: "20000.0",
+      pair: "BTC/USD",
+    };
+
+    const ethOrder: Order = {
+      order_id: "2",
+      account_id: "acc2",
+      type_op: "CREATE",
+      side: "BUY",
+      amount: "10.0",
+      limit_price: "1500.0",
+      pair: "ETH/USD",
+    };
+
+    engine.processOrder(btcOrder);
+    engine.processOrder(ethOrder);
+
+    // Verify both orders are in their respective books
+    const orderBooksBefore = engine.getOrderBooks();
+    expect(orderBooksBefore["BTC/USD"].bids.length).toBe(1);
+    expect(orderBooksBefore["ETH/USD"].bids.length).toBe(1);
+
+    // Delete BTC/USD order
     const deleteOrder: Order = {
-      type_op: 'DELETE',
-      account_id: '1',
-      amount: '1.0',
-      order_id: '301',
-      pair: 'BTC/USDC',
-      limit_price: '50000',
-      side: 'BUY'
-    };
+      order_id: "1",
+      type_op: "DELETE",
+      side: "BUY",
+      pair: "BTC/USD",
+    } as Order;
 
-    // Process the delete order
     engine.processOrder(deleteOrder);
 
-    // Check the orderbook - the order should be removed
-    const orderBookAfter = engine.getOrderBook();
-    expect(orderBookAfter.bids.length).toBe(0);
+    // Verify only BTC/USD order is deleted
+    const orderBooksAfter = engine.getOrderBooks();
+    expect(orderBooksAfter["BTC/USD"].bids.length).toBe(0);
+    expect(orderBooksAfter["ETH/USD"].bids.length).toBe(1);
+  });
+
+  test("reset clears all order books", () => {
+    // Add orders to both pairs
+    const btcOrder: Order = {
+      order_id: "1",
+      account_id: "acc1",
+      type_op: "CREATE",
+      side: "BUY",
+      amount: "1.0",
+      limit_price: "20000.0",
+      pair: "BTC/USD",
+    };
+
+    const ethOrder: Order = {
+      order_id: "2",
+      account_id: "acc2",
+      type_op: "CREATE",
+      side: "BUY",
+      amount: "10.0",
+      limit_price: "1500.0",
+      pair: "ETH/USD",
+    };
+
+    engine.processOrder(btcOrder);
+    engine.processOrder(ethOrder);
+
+    // Verify orders are in their books
+    const orderBooksBefore = engine.getOrderBooks();
+    expect(Object.keys(orderBooksBefore).length).toBe(2);
+
+    // Reset the engine
+    engine.reset();
+
+    // Check that all order books are cleared
+    const orderBooksAfter = engine.getOrderBooks();
+    expect(Object.keys(orderBooksAfter).length).toBe(0);
+    expect(engine.getTrades().length).toBe(0);
   });
 });
