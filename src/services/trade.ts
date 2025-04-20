@@ -8,12 +8,12 @@ const executeTrade = async () => {
     const engine = new TradingEngine();
 
     // Process orders from the input file
-    const inputFile = path.join(__dirname, "../../files/orders.json");
+    const inputFile = path.join(__dirname, "../../../files/orders.json");
     await engine.processOrdersFromFile(inputFile);
 
     // Save the orderbook and trades to output files
-    const orderBookFile = path.join(__dirname, "../../files/orderbook.json");
-    const tradesFile = path.join(__dirname, "../../files/trades.json");
+    const orderBookFile = path.join(__dirname, "../../../files/orderbook.json");
+    const tradesFile = path.join(__dirname, "../../../files/trades.json");
 
     await engine.saveOrderBook(orderBookFile);
     await engine.saveTrades(tradesFile);
