@@ -1,3 +1,4 @@
+// src/__tests__/tradingEngine.test.ts
 import { TradingEngine } from '../services/trading-engine';
 import { Order } from '../types';
 
@@ -5,6 +6,7 @@ describe('TradingEngine', () => {
   let engine: TradingEngine;
 
   beforeEach(() => {
+    // Create a fresh engine instance before each test
     engine = new TradingEngine();
   });
 
@@ -148,7 +150,7 @@ describe('TradingEngine', () => {
     const deleteOrder: Order = {
       type_op: 'DELETE',
       account_id: '1',
-      amount: '1.0',
+      amount: '1.0', // Not actually used for delete operations
       order_id: '301',
       pair: 'BTC/USDC',
       limit_price: '50000',

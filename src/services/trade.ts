@@ -34,6 +34,7 @@ const executeTrade = async () => {
     console.log(`- Bids (buy orders): ${orderBook.bids.length}`);
     console.log(`- Asks (sell orders): ${orderBook.asks.length}`);
   } catch (error) {
+    ``;
     console.error("An error occurred:", error);
     process.exit(1);
   }
