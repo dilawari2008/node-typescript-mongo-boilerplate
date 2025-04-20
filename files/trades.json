@@ -6,60 +6,123 @@
     "amount": "0.00230000",
     "price": "63500.00",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.747Z"
+    "timestamp": "2025-04-20T14:05:42.227Z"
   },
   {
     "trade_id": "2",
+    "buy_order_id": "2",
+    "sell_order_id": "1",
+    "amount": "0.00230000",
+    "price": "63500.00",
+    "pair": "ETH/USDC",
+    "timestamp": "2025-04-20T14:05:42.231Z"
+  },
+  {
+    "trade_id": "3",
+    "buy_order_id": "3",
+    "sell_order_id": "4",
+    "amount": "0.00798000",
+    "price": "62880.54",
+    "pair": "ETH/USDC",
+    "timestamp": "2025-04-20T14:05:42.231Z"
+  },
+  {
+    "trade_id": "4",
+    "buy_order_id": "7",
+    "sell_order_id": "6",
+    "amount": "0.20000000",
+    "price": "47500",
+    "pair": "ETH/USDC",
+    "timestamp": "2025-04-20T14:05:42.231Z"
+  },
+  {
+    "trade_id": "5",
+    "buy_order_id": "9",
+    "sell_order_id": "8",
+    "amount": "2.34500000",
+    "price": "61577.30",
+    "pair": "ETH/USDC",
+    "timestamp": "2025-04-20T14:05:42.232Z"
+  },
+  {
+    "trade_id": "6",
     "buy_order_id": "3",
     "sell_order_id": "4",
     "amount": "0.00798000",
     "price": "62880.54",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T14:05:42.232Z"
   },
   {
-    "trade_id": "3",
+    "trade_id": "7",
     "buy_order_id": "7",
     "sell_order_id": "6",
     "amount": "0.20000000",
     "price": "47500",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T14:05:42.232Z"
   },
   {
-    "trade_id": "4",
+    "trade_id": "8",
     "buy_order_id": "9",
     "sell_order_id": "8",
     "amount": "2.34500000",
     "price": "61577.30",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T14:05:42.232Z"
   },
   {
-    "trade_id": "5",
+    "trade_id": "9",
     "buy_order_id": "10",
     "sell_order_id": "8",
     "amount": "2.00000000",
     "price": "61577.30",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T14:05:42.232Z"
   },
   {
-    "trade_id": "6",
+    "trade_id": "10",
     "buy_order_id": "11",
     "sell_order_id": "8",
     "amount": "0.50000000",
     "price": "61577.30",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T14:05:42.232Z"
   },
   {
-    "trade_id": "7",
+    "trade_id": "11",
     "buy_order_id": "12",
     "sell_order_id": "8",
     "amount": "1.50000000",
     "price": "61577.30",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T14:05:42.232Z"
+  },
+  {
+    "trade_id": "12",
+    "buy_order_id": "10",
+    "sell_order_id": "8",
+    "amount": "2.00000000",
+    "price": "61577.30",
+    "pair": "ETH/USDC",
+    "timestamp": "2025-04-20T14:05:42.232Z"
+  },
+  {
+    "trade_id": "13",
+    "buy_order_id": "11",
+    "sell_order_id": "8",
+    "amount": "0.50000000",
+    "price": "61577.30",
+    "pair": "ETH/USDC",
+    "timestamp": "2025-04-20T14:05:42.232Z"
+  },
+  {
+    "trade_id": "14",
+    "buy_order_id": "12",
+    "sell_order_id": "8",
+    "amount": "1.50000000",
+    "price": "61577.30",
+    "pair": "ETH/USDC",
+    "timestamp": "2025-04-20T14:05:42.232Z"
   }
 ]
