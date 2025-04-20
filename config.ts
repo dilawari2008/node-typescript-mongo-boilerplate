@@ -12,8 +12,8 @@ const Config = {
   jwtSecret: process.env.JWT_SECRET || '',
   environment: process.env.ENV || Environments.development,
   ordersFile: process.env.ORDERS_FILE || '../../files/orders.json',
-  orderbookFile: process.env.ORDERBOOK_FILE || '../../files/orderbook',
-  tradesFile: process.env.TRADES_FILE || '../../files/trades',
+  orderbookFile: process.env.ORDERBOOK_FILE || '../../files/orderbook.json',
+  tradesFile: process.env.TRADES_FILE || '../../files/trades.json',
 };
 
 export default Config

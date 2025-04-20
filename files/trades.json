@@ -6,7 +6,7 @@
     "amount": "0.00230000",
     "price": "63500.00",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.747Z"
+    "timestamp": "2025-04-20T13:27:37.268Z"
   },
   {
     "trade_id": "2",
@@ -15,7 +15,7 @@
     "amount": "0.00798000",
     "price": "62880.54",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T13:27:37.283Z"
   },
   {
     "trade_id": "3",
@@ -24,7 +24,7 @@
     "amount": "0.20000000",
     "price": "47500",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T13:27:37.283Z"
   },
   {
     "trade_id": "4",
@@ -33,7 +33,7 @@
     "amount": "2.34500000",
     "price": "61577.30",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T13:27:37.283Z"
   },
   {
     "trade_id": "5",
@@ -42,7 +42,7 @@
     "amount": "2.00000000",
     "price": "61577.30",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T13:27:37.283Z"
   },
   {
     "trade_id": "6",
@@ -51,7 +51,7 @@
     "amount": "0.50000000",
     "price": "61577.30",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T13:27:37.283Z"
   },
   {
     "trade_id": "7",
@@ -60,6 +60,6 @@
     "amount": "1.50000000",
     "price": "61577.30",
     "pair": "BTC/USDC",
-    "timestamp": "2025-04-20T14:02:47.750Z"
+    "timestamp": "2025-04-20T13:27:37.283Z"
   }
 ]
