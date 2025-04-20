@@ -1,5 +1,6 @@
-import { TradingEngine } from '@/services/trading-engine';
-import path from 'path';
+import Config from "@/config";
+import { TradingEngine } from "@/services/trading-engine";
+import path from "path";
 
 const executeTrade = async () => {
   try {
@@ -8,12 +9,12 @@ const executeTrade = async () => {
     const engine = new TradingEngine();
 
     // Process orders from the input file
-    const inputFile = path.join(__dirname, "../../../files/orders.json");
+    const inputFile = path.join(__dirname, Config.ordersFile);
     await engine.processOrdersFromFile(inputFile);
 
     // Save the orderbook and trades to output files
-    const orderBookFile = path.join(__dirname, "../../../files/orderbook.json");
-    const tradesFile = path.join(__dirname, "../../../files/trades.json");
+    const orderBookFile = path.join(__dirname, Config.orderbookFile);
+    const tradesFile = path.join(__dirname, Config.tradesFile);
 
     await engine.saveOrderBook(orderBookFile);
     await engine.saveTrades(tradesFile);
@@ -32,7 +33,8 @@ const executeTrade = async () => {
     );
     console.log(`- Bids (buy orders): ${orderBook.bids.length}`);
     console.log(`- Asks (sell orders): ${orderBook.asks.length}`);
-  } catch (error) {``
+  } catch (error) {
+    ``;
     console.error("An error occurred:", error);
     process.exit(1);
   }

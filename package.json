@@ -13,7 +13,7 @@
   "scripts": {
     "build": "rimraf dist && tsc && tsc-alias -v",
     "start": "yarn nodemon src/app.ts --legacy-watch",
-    "direct": "ts-node src/app.ts",
+    "prod": "ts-node src/app.ts",
     "lint": "eslint --ignore-path .gitignore --ext .ts,.js ./",
     "lint:fix": "yarn lint -- --fix"
   },
@@ -44,6 +44,7 @@
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.14",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.6",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
